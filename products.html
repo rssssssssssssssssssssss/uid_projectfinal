@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-color:#e6e6e6 ;
+        }
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 100%;
+            margin:auto;
+            background-color:#060234;
+            margin-top:-20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px #060234 ;
+            background-color: #e6e6e6;
+        }
+
+        .product img {
+            width:85%;
+            height: 45%;
+            border-radius: 5px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 10px;
+            background-color: #ffff00;
+            color: #060234  ;
+            padding: 10px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: none; /* Hidden initially */
+            z-index: 1000;
+            cursor: pointer;
+        }
+        .back-to-top:hover {
+            background-color: #fffc4f;
+        }
+        .buy-button {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 2.5px;
+        }
+
+        .buy-button:hover {
+            background-color: #218838;
+        }
+
+        header .cart-icon {
+            position:relative;  
+            bottom:67px;
+            background: #f3f324;
+            color: #060234;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 750px;
+            display:inline-block;
+            align-items: center;  
+        }
+        
+        header h2{
+            text-align: center;
+            font-size: 2rem;
+            color: #060234;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h2>ACCESSORIES</h2>
+        <div class="cart-icon" onclick="viewCart()">
+            🛒 Cart
+        </div>
+        
+        <div class="product-container"></div>
+    </header>
+
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <script>
+        let products = [
+            "Car Scratch Remover Repair Wax Polish",
+            "Car Tissue Holder",
+            "Cycle Pump for Bicycle and Bike",
+            "Car Sun Shades",
+            "Car Dashboard Accessories",
+            "LBoard Learner ReflectiveDriver Vinyl Exterior Decal",
+            "Portable High Pressure Foot Air Pump",
+            "Mini Car Trash Bin Can Holder",
+            "Cordless Tyre Inflator",
+            "Digital Tyre Inflator with Emergency Light",
+            "Car Vacuum Cleaner",
+            "Tablet Concentrate Vehicle Glass Cleaner",
+            "LED Fog Lamp Unit",
+            "Liquid Car Polish",
+            "Universal Bike Mount Holder",
+            "Foaming Car Shampoo",
+            "Car Mobile Holder for Dashboard",
+            "Car Door Edge Guards",
+            "Tyre Air Pump for Car & Bike",
+            "Waterproof Two Wheeler Cover",
+            "Bike Number Plate Frame Cover",
+            "Riding Gloves",
+            "Car Seat Covers",
+            "Car Sun Visor Organizer",
+            "Car Pressure Washer",
+            "Portable DC Digital Tyre Inflator",
+            "Car Amplifier",
+            "Car Glass Hard Water Spot Remover"
+        ];
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        function formatImageName(productName) {
+            return "image/" + productName.replace(/ /g, "_") + ".jpeg";
+        }
+
+        function addToCart(index) {
+            let productName = products[index];
+            let price = (index + 1) * 2;
+            let item = cart.find(item => item.name === productName);
+            
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Added to cart");
+        }
+
+        function viewCart() {
+            window.top.location.href = "cart.html";;
+        }
+
+        let html = "";
+        products.forEach((product, index) => {
+            let imageName = formatImageName(product);
+            html += `<div class='product'>
+                        <img src='${imageName}' alt='${product}'>
+                        <p>${product}</p>
+                        <p>$${(index + 1) * 2}.00</p>
+                        <button class='buy-button' onclick='addToCart(${index})'>Add to Cart</button>
+                    </div>`;
+        });
+
+        document.querySelector(".product-container").innerHTML = html;
+
+        // Back to Top Button Functionality
+        const backToTopButton = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", function() {
+            if (window.scrollY > 200) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        });
+
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        function addToCart(index) {
+            let productName = products[index];
+            let price = (index + 1) * 2;
+            let item = cart.find(item => item.name === productName);
+        
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+        
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Added to cart");
+        
+            updateCartCount();
+        }
+        
+        function updateCartCount() {
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            let cartCountElement = document.getElementById("cart-count");
+        
+            cartCountElement.textContent = totalItems;
+            cartCountElement.style.display = totalItems > 0 ? "block" : "none";
+        }
+        
+        // Initialize Cart Count on Page Load
+        updateCartCount();
+        
+    </script>
+</body>
+</html>

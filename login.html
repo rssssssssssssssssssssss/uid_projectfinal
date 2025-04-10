@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Motoinfo</title>
+  <link rel="icon" href="icon.jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .auth-section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 500px;
+      padding: 0 20px;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      font-size: 28px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+    }
+
+    input.valid {
+      border-color: #4CAF50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+    }
+
+    input.invalid {
+      border-color: #f44336;
+      box-shadow: 0 0 10px rgba(244, 67, 54, 0.2);
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    a:hover {
+      color: #45a049;
+      text-decoration: underline;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 30px 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="auth-section">
+    <div class="login-container">
+      <h2>Login</h2>
+      <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <div id="email-error" class="error-message">Please enter a valid email address</div>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+        <div id="password-error" class="error-message">Password must be at least 6 characters</div>
+        
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const emailError = document.getElementById('email-error');
+      const passwordError = document.getElementById('password-error');
+      const loginForm = document.getElementById('login-form');
+
+      // Email validation
+      emailInput.addEventListener('input', function() {
+        const email = emailInput.value.trim();
+        const isValid = validateEmail(email);
+        
+        if (email === '') {
+          emailInput.classList.remove('valid', 'invalid');
+          emailError.style.display = 'none';
+        } else if (isValid) {
+          emailInput.classList.add('valid');
+          emailInput.classList.remove('invalid');
+          emailError.style.display = 'none';
+        } else {
+          emailInput.classList.add('invalid');
+          emailInput.classList.remove('valid');
+          emailError.style.display = 'block';
+        }
+      });
+
+      // Password validation
+      passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value.trim();
+        
+        if (password === '') {
+          passwordInput.classList.remove('valid', 'invalid');
+          passwordError.style.display = 'none';
+        } else if (password.length >= 6) {
+          passwordInput.classList.add('valid');
+          passwordInput.classList.remove('invalid');
+          passwordError.style.display = 'none';
+        } else {
+          passwordInput.classList.add('invalid');
+          passwordInput.classList.remove('valid');
+          passwordError.style.display = 'block';
+        }
+      });
+
+      // Form submission
+      loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        // Validate fields again on submission
+        const isEmailValid = validateEmail(email);
+        const isPasswordValid = password.length >= 6;
+        
+        if (!isEmailValid) {
+          emailInput.classList.add('invalid');
+          emailError.style.display = 'block';
+        }
+        
+        if (!isPasswordValid) {
+          passwordInput.classList.add('invalid');
+          passwordError.style.display = 'block';
+        }
+        
+        if (!isEmailValid || !isPasswordValid) {
+          return;
+        }
+        
+        // Check user credentials
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+        const user = storedUsers.find(user => user.email === email && user.password === password);
+        
+        if (!user) {
+          alert('Invalid email or password.');
+          return;
+        }
+        
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        alert('Login successful! Redirecting to home page...');
+        window.location.href = 'motoinfo.html';
+      });
+
+      // Email validation function
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+    });
+  </script>
+</body>
+</html>

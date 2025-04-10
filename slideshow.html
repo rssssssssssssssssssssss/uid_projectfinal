@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .slideshow-container {
+            width: 40%;
+            height: 50vh;
+            position: relative;
+            overflow: hidden;
+            background: black;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position:fixed;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .active {
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body onload="startSlideshow()">
+    <div class="slideshow-container" id="slideshow"></div>
+
+    <script>
+        // Fetch images dynamically
+        function getImages() {
+            return [
+                "Car_Scratch_Remover_Repair_Wax_Polish.jpeg",
+                "Car_Tissue_Holder.jpeg",
+                "Cycle_Pump_for_Bicycle_and_Bike.jpeg",
+                "Car_Sun_Shades.jpeg",
+                "Car_Dashboard_Accessories.jpeg",
+                "LBoard_Learner_ReflectiveDriver_Vinyl_Exterior_Decal.jpeg",
+                "Portable_High_Pressure_Foot_Air_Pump.jpeg",
+                "Mini_Car_Trash_Bin_Can_Holder.jpeg",
+                "Cordless_Tyre_Inflator.jpeg",
+                "Digital_Tyre_Inflator_with_Emergency_Light.jpeg",
+                "Car_Vacuum_Cleaner.jpeg",
+                "Tablet_Concentrate_Vehicle_Glass_Cleaner.jpeg",
+                "LED_Fog_Lamp_Unit.jpeg",
+                "Liquid_Car_Polish.jpeg",
+                "Universal_Bike_Mount_Holder.jpeg",
+                "Foaming_Car_Shampoo.jpeg",
+                "Car_Mobile_Holder_for_Dashboard.jpeg",
+                "Car_Door_Edge_Guards.jpeg",
+                "Tyre_Air_Pump_for_Car_&_Bike.jpeg",
+                "Waterproof_Two_Wheeler_Cover.jpeg",
+                "Bike_Number_Plate_Frame_Cover.jpeg",
+                "Riding_Gloves.jpeg",
+                "Car_Seat_Covers.jpeg",
+                "Car_Sun_Visor_Organizer.jpeg",
+                "Car_Pressure_Washer.jpeg",
+                "Portable_DC_Digital_Tyre_Inflator.jpeg",
+                "Car_Amplifier.jpeg",
+                "Car_Glass_Hard_Water_Spot_Remover.jpeg"
+            ];
+        }
+
+        function startSlideshow() {
+            const imageFolder = "image/"; // Change this if images are in a different folder
+            const images = getImages();
+            const slideshowContainer = document.getElementById("slideshow");
+
+            images.forEach((image, index) => {
+                let img = document.createElement("img");
+                img.src = `${imageFolder}${image}`;
+                img.classList.add("slide");
+                if (index === 0) img.classList.add("active"); // Show first image initially
+                slideshowContainer.appendChild(img);
+            });
+
+            let slides = document.getElementsByClassName("slide");
+            let index = 0;
+
+            setInterval(() => {
+                slides[index].classList.remove("active"); // Hide current slide
+                index = (index + 1) % slides.length; // Move to next slide
+                slides[index].classList.add("active"); // Show next slide
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Koenigsegg - Road Cars - Motoinfo</title>
+  <link rel="icon" href="../icon.jpg">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Background styling for Koenigsegg page */
+    body {
+      background: url("../assets/images/companies/koenigsegg_logo2.png") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    
+    .company-detail-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 20px auto;
+      max-width: 1000px;
+      border-radius: 10px;
+    }
+    
+    .company-detail-section h1 {
+      color: #ffcc00;
+      font-size: 3rem;
+    }
+    
+    .company-detail-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .car-card {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    
+    .car-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    .car-card h3 {
+      color: #ffcc00;
+      margin: 10px 0;
+    }
+    
+    .car-card p {
+      font-size: 1rem;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    
+    .car-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      color: black;
+      background: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    
+    .car-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 24px;
+      background: #ffcc00;
+      color: black;
+      padding: 10px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back-to-top:hover {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">Motoinfo</div>
+    <ul class="nav-links">
+      <li><a href="../motoinfo.html">Home</a></li>
+      <li><a href="../motoinfo.html#companies">Road Cars</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Koenigsegg Information Section -->
+  <section class="company-detail-section">
+    <h1>Koenigsegg - Road Cars</h1>
+    <p>Koenigsegg is a Swedish hypercar manufacturer pushing the boundaries of automotive engineering with innovative technology, record-breaking performance, and breathtaking design.</p>
+    <p>Founded in 1994, Koenigsegg has earned its reputation by delivering exclusive, limited-production hypercars that challenge conventional engineering and redefine performance. Every Koenigsegg model is a blend of advanced aerodynamics, lightweight construction, and unrivaled power.</p>
+    <p>With models that showcase extreme speeds and meticulous craftsmanship, Koenigsegg’s vehicles are celebrated by automotive enthusiasts around the world.</p>
+  </section>
+
+  <!-- Koenigsegg Models Grid -->
+  <section class="car-grid">
+    <div class="car-card">
+      <img src="https://i0.wp.com/asphalt9.info/wp-content/uploads/2024/10/Asphalt-Legends-Unite-Koenigsegg-Jesko.jpg?fit=1928%2C1080&ssl=1" alt="Koenigsegg Jesko">
+      <h3>Jesko</h3>
+      <p>The Jesko is engineered for speed and performance – a true hypercar with revolutionary aerodynamics and power.</p>
+      <a href="../cars/koenigsegg-jesko.html" class="btn">Details</a>
+    </div>
+    <div class="car-card">
+      <img src="https://img.autocarpro.in/autocarpro/0567a2fa-b300-4087-872a-169a3dd165c5_green-fancy-car.jpg?w=750&h=490&q=75&c=1" alt="Koenigsegg Gemera">
+      <h3>Gemera</h3>
+      <p>The Gemera is a groundbreaking four-seater with futuristic technology and unrivaled efficiency.</p>
+      <a href="../cars/gemera.html" class="btn">Details</a>
+    </div>
+    <div class="car-card">
+      <img src="https://s.yimg.com/ny/api/res/1.2/1Pxouc_2CFllLZtV2Eb1LA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTk-/https://media.zenfs.com/en/robb_report_967/bd35b6fd261c7a179d19d75d36016362" alt="Koenigsegg Regera">
+      <h3>Regera</h3>
+      <p>A hybrid hypercar that combines incredible power with luxurious comfort and advanced efficiency.</p>
+      <a href="../cars/regera.html" class="btn">Details</a>
+    </div>
+    
+   
+  </section>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+</body>
+</html>

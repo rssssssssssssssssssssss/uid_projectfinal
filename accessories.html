@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f3f3f3;
+            color: #0F1111;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(to bottom, #232f3e, #131921);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 500;
+        }
+        
+        .cart-icon {
+            background: #febd69;
+            color: #131921;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cart-icon:hover {
+            background: #f3a847;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container input {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            width: 300px;
+        }
+
+        .search-container button {
+            background: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-container button:hover {
+            background: #7b1fa2;
+        }
+
+        .home-btn {
+            background: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .home-btn:hover {
+            background: #7b1fa2;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #febd69;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            color: #0066c0;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-size: 21px;
+            font-weight: bold;
+            color: #b12704;
+            margin-bottom: 10px;
+        }
+        
+        .product-rating {
+            color: #ffa41c;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .add-to-cart {
+            background: #ffd814;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: #f7ca00;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <button class="home-btn" onclick="window.location.href='motoinfo.html'">🏠 Home</button>
+            <div class="search-container">
+                <input type="text" placeholder="Search accessories..." id="searchInput">
+                <button onclick="searchProducts()">Search</button>
+            </div>
+            <h1>Motorcycle Accessories</h1>
+            <div class="cart-icon" onclick="viewCart()">
+                🛒 Cart (<span id="cart-count">0</span>)
+            </div>
+        </div>
+        
+        <div class="product-grid"></div>
+    </div>
+
+    <script>
+        let products = [
+            "Car Scratch Remover Repair Wax Polish",
+            "Car Tissue Holder",
+            "Cycle Pump for Bicycle and Bike",
+            "Car Sun Shades",
+            "Car Dashboard Accessories",
+            "LBoard Learner ReflectiveDriver Vinyl Exterior Decal",
+            "Portable High Pressure Foot Air Pump",
+            "Mini Car Trash Bin Can Holder",
+            "Cordless Tyre Inflator",
+            "Digital Tyre Inflator with Emergency Light",
+            "Car Vacuum Cleaner",
+            "Tablet Concentrate Vehicle Glass Cleaner",
+            "LED Fog Lamp Unit",
+            "Liquid Car Polish",
+            "Universal Bike Mount Holder",
+            "Foaming Car Shampoo",
+            "Car Mobile Holder for Dashboard",
+            "Car Door Edge Guards",
+            "Tyre Air Pump for Car & Bike",
+            "Waterproof Two Wheeler Cover",
+            "Bike Number Plate Frame Cover",
+            "Riding Gloves",
+            "Car Seat Covers",
+            "Car Sun Visor Organizer",
+            "Car Pressure Washer",
+            "Portable DC Digital Tyre Inflator",
+            "Car Amplifier",
+            "Car Glass Hard Water Spot Remover"
+        ];
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        function formatImageName(productName) {
+            return "image/" + productName.replace(/ /g, "_") + ".jpeg";
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = searchTerm ? 
+                products.filter(product => product.toLowerCase().includes(searchTerm)) : 
+                products;
+            
+            renderProducts(filtered);
+        }
+
+        function renderProducts(productsToRender) {
+            let html = "";
+            productsToRender.forEach((product, index) => {
+                let imageName = formatImageName(product);
+                html += `<div class='product-card'>
+                            <img src='${imageName}' alt='${product}' class='product-image'>
+                            <div class='product-title'>${product}</div>
+                            <div class='product-rating'>★★★★★</div>
+                            <div class='product-price'>$${(index + 1) * 20}.99</div>
+                            <button class='add-to-cart' onclick='addToCart(${index})'>Add to Cart</button>
+                        </div>`;
+            });
+            document.querySelector(".product-grid").innerHTML = html;
+        }
+
+        function viewCart() {
+            window.top.location.href = "cart.html";
+        }
+
+        function addToCart(index) {
+            let productName = products[index];
+            let price = (index + 1) * 20;
+            let item = cart.find(item => item.name === productName);
+        
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+        
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${productName} added to cart`);
+            updateCartCount();
+        }
+        
+        function updateCartCount() {
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            let cartCountElement = document.getElementById("cart-count");
+        
+            cartCountElement.textContent = totalItems;
+            cartCountElement.style.display = totalItems > 0 ? "block" : "none";
+        }
+        
+        // Initial render
+        renderProducts(products);
+        // Initialize Cart Count on Page Load
+        updateCartCount();
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="icon" href="icon.jpg">
+    <style>
+        body {
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .checkout-container {
+            background-color: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #8a2be2;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+        }
+        #totalAmount {
+            color: #8a2be2;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        select:focus, input:focus {
+            border-color: #8a2be2;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #7b1fa2;
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .payment-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f5ff;
+            border-radius: 8px;
+        }
+        .payment-section h3 {
+            color: #8a2be2;
+            margin-top: 0;
+        }
+    </style>
+    <script>
+        function loadTotalAmount() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById("totalAmount").innerText = `Total Amount: $${totalPrice.toFixed(2)}`;
+        }
+
+        function showPaymentFields() {
+            let method = document.getElementById("paymentMethod").value;
+            document.getElementById("cardDetails").classList.add("hidden");
+            document.getElementById("upiDetails").classList.add("hidden");
+            document.getElementById("netBankingDetails").classList.add("hidden");
+
+            if (method === "card") {
+                document.getElementById("cardDetails").classList.remove("hidden");
+            } else if (method === "upi") {
+                document.getElementById("upiDetails").classList.remove("hidden");
+            } else if (method === "netbanking") {
+                document.getElementById("netBankingDetails").classList.remove("hidden");
+            }
+        }
+
+        function processPayment() {
+            let method = document.getElementById("paymentMethod").value;
+            let isValid = true;
+            document.querySelectorAll(".error").forEach(e => e.style.display = "none");
+
+            if (!method) {
+                document.getElementById("paymentError").style.display = "block";
+                isValid = false;
+            }
+
+            if (method === "card") {
+                let cardNumber = document.getElementById("cardNumber").value.trim();
+                let cvv = document.getElementById("cvv").value.trim();
+                let expiry = document.getElementById("expiry").value.trim();
+
+                if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+                    document.getElementById("cardError").style.display = "block";
+                    isValid = false;
+                }
+                if (cvv.length !== 3 || isNaN(cvv)) {
+                    document.getElementById("cvvError").style.display = "block";
+                    isValid = false;
+                }
+                if (!expiry.match(/^(0[1-9]|1[0-2])\/\d{2}$/)) {
+                    document.getElementById("expiryError").style.display = "block";
+                    isValid = false;
+                }
+            } else if (method === "upi") {
+                let upi = document.getElementById("upi").value.trim();
+                if (!upi.match(/^[a-zA-Z0-9.\-_]+@[a-zA-Z]+$/)) {
+                    document.getElementById("upiError").style.display = "block";
+                    isValid = false;
+                }
+            } else if (method === "netbanking") {
+                let bank = document.getElementById("bank").value;
+                if (!bank) {
+                    document.getElementById("bankError").style.display = "block";
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                if (method === "netbanking") {
+                    window.location.href = `https://www.${document.getElementById("bank").value}.com`;
+                } else if (method === "upi") {
+                    alert("Redirecting to UPI Payment...");
+                    setTimeout(() => {
+                        alert("UPI Payment Successful!");
+                        completeOrder();
+                    }, 3000);
+                } else if (method === "card") {
+                    alert("Processing Card Payment...");
+                    setTimeout(() => {
+                        alert("Card Payment Successful!");
+                        completeOrder();
+                    }, 3000);
+                } else {
+                    completeOrder();
+                }
+            }
+        }
+
+        async function completeOrder() {
+            try {
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                if (!user) {
+                    alert('Please login to complete purchase');
+                    return;
+                }
+
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // Try to record purchase if Electron is available
+                try {
+                    if (typeof require === 'function') {
+                        const { ipcRenderer } = require('electron');
+                        const items = cart.map(item => `${item.name} (${item.quantity})`).join(', ');
+                        const amount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                        
+                        await ipcRenderer.invoke('record-purchase', {
+                            email: user.email,
+                            purchaseData: {
+                                items,
+                                amount: amount.toFixed(2)
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.log('Purchase recording not available');
+                }
+
+                // Always clear cart and redirect
+                localStorage.removeItem("cart");
+                window.location.href = "order-success.html";
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Error during checkout. Please try again.');
+            }
+        }
+    </script>
+</head>
+<body onload="loadTotalAmount()">
+    <div class="checkout-container">
+        <h2>Secure Checkout</h2>
+        <p id="totalAmount">Total Amount: $0</p>
+        
+        <div class="payment-section">
+            <label for="paymentMethod">Select Payment Method:</label>
+            <select id="paymentMethod" onchange="showPaymentFields()">
+                <option value="">-- Select --</option>
+                <option value="card">Credit/Debit Card</option>
+                <option value="upi">UPI</option>
+                <option value="netbanking">Net Banking</option>
+                <option value="cod">Cash on Delivery</option>
+            </select>
+            <span id="paymentError" class="error">Please select a payment method.</span>
+        </div>
+
+        <div id="cardDetails" class="hidden payment-section">
+            <h3>Card Details</h3>
+            <input type="text" id="cardNumber" placeholder="Card Number">
+            <span id="cardError" class="error">Enter a valid 16-digit card number.</span>
+
+            <input type="text" id="cvv" placeholder="CVV">
+            <span id="cvvError" class="error">Enter a valid 3-digit CVV.</span>
+
+            <input type="text" id="expiry" placeholder="MM/YY">
+            <span id="expiryError" class="error">Enter a valid expiry date (MM/YY).</span>
+        </div>
+
+        <div id="upiDetails" class="hidden payment-section">
+            <h3>UPI Payment</h3>
+            <input type="text" id="upi" placeholder="Enter UPI VPA (e.g., user@upi)">
+            <span id="upiError" class="error">Enter a valid UPI ID (e.g., user@upi).</span>
+        </div>
+
+        <div id="netBankingDetails" class="hidden payment-section">
+            <h3>Net Banking</h3>
+            <select id="bank">
+                <option value="">-- Select Bank --</option>
+                <option value="hdfc">HDFC Bank</option>
+                <option value="icici">ICICI Bank</option>
+                <option value="sbi">State Bank of India</option>
+                <option value="axis">Axis Bank</option>
+            </select>
+            <span id="bankError" class="error">Please select a bank.</span>
+        </div>
+
+        <button onclick="processPayment()">Complete Payment</button>
+    </div>
+</body>
+</html>

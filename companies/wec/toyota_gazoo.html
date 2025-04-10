@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Toyota Gazoo Racing - WEC - Motoinfo</title>
+  <link rel="icon" href="../icon.jpg">
+<link rel="stylesheet" href="../../styles.css">
+<script src="../../script.js" defer></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Toyota_Gazoo_Racing_WRT_Logo.png/1024px-Toyota_Gazoo_Racing_WRT_Logo.png") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    
+    .company-detail-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 20px auto;
+      max-width: 1000px;
+      border-radius: 10px;
+    }
+    
+    .company-detail-section h1 {
+      color: #ff0000;
+      font-size: 3rem;
+    }
+    
+    .company-detail-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .car-card {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    
+    .car-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    .car-card h3 {
+      color: #ff0000;
+      margin: 10px 0;
+    }
+    
+    .car-card p {
+      font-size: 1rem;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    
+    .car-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      color: black;
+      background: #ff0000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    
+    .car-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 24px;
+      background: #ff0000;
+      color: black;
+      padding: 10px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back-to-top:hover {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Motoinfo</div>
+    <ul class="nav-links">
+      <li><a href="../../motoinfo.html">Home</a></li>
+      <li><a href="../../about.html">About</a></li>
+    </ul>
+  </nav>
+
+
+
+  <section class="company-detail-section">
+    <h1>Toyota Gazoo Racing</h1>
+    <p>Toyota Gazoo Racing is a leader in endurance racing, showcasing cutting-edge hybrid technology and performance-driven engineering.</p>
+    <p>With a legacy of victories in the FIA World Endurance Championship (WEC) and the iconic 24 Hours of Le Mans, Toyota Gazoo Racing continues to push the limits of innovation in motorsports.</p>
+  </section>
+
+  <section class="car-grid">
+    
+    <div class="car-card">
+      <img src="https://cdn-8.motorsport.com/images/amp/6AEoNXG6/s1000/toyota-gr010-hybrid-1.jpg" alt="GR010 Hybrid">
+      <h3>GR010 Hybrid</h3>
+      <p>The GR010 Hybrid is Toyota's cutting-edge hypercar designed for endurance racing supremacy.</p>
+      <a href="../../cars/wec/gr010_hybrid.html" class="btn">Details</a>
+    </div>
+    <div class="car-card">
+      <img src="https://i.ytimg.com/vi/D4da5rbzGaI/sddefault.jpg" alt="GR Supra GT4">
+      <h3>GR Supra GT4</h3>
+      <p>A race-ready version of the iconic GR Supra, optimized for GT4 competition.</p>
+      <a href="../../cars/wec/gr_supra_gt4.html" class="btn">Details</a>
+    </div>
+  </section>
+
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+</body>
+</html>

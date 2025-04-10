@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="icon" href="icon.jpg">
+    <style>
+        body {
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+        }
+        .cart-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #8a2be2;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s;
+        }
+        .cart-item:hover {
+            background-color: #f9f5ff;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .cart-item span {
+            flex: 1;
+            text-align: center;
+            color: #333;
+        }
+        .cart-item input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .cart-item button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cart-item button:hover {
+            background-color: #7b1fa2;
+        }
+        .checkout {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 4px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .checkout:hover {
+            background-color: #7b1fa2;
+        }
+
+        .accessories-btn {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .accessories-btn:hover {
+            background-color: #7b1fa2;
+        }
+        .customer-info {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f9f5ff;
+            border-radius: 8px;
+        }
+        .customer-info input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        #totalPrice {
+            color: #8a2be2;
+            font-size: 18px;
+            text-align: right;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartContainer = document.getElementById("cartContainer");
+            cartContainer.innerHTML = "";
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p style='text-align:center; color:#666;'>Your cart is empty.</p>";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                totalPrice += item.quantity * item.price;
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="image/${item.name.replace(/ /g, '_').toLowerCase()}.jpeg" alt="${item.name}">
+                        <span>${item.name}</span>
+                        <span>Qty: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)"></span>
+                        <span>Price: $${(item.quantity * item.price).toFixed(2)}</span>
+                        <button onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+            });
+            document.getElementById("totalPrice").innerText = `Total Price: $${totalPrice.toFixed(2)}`;
+        }
+
+        function updateQuantity(index, quantity) {
+            let cart = JSON.parse(localStorage.getItem("cart"));
+            cart[index].quantity = parseInt(quantity);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem("cart"));
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function validateAndProceed() {
+            let name = document.getElementById("customerName").value.trim();
+            let phone = document.getElementById("customerPhone").value.trim();
+            let address = document.getElementById("customerAddress").value.trim();
+
+            if (name === "" || phone === "" || address === "") {
+                alert("Please fill in all fields before proceeding to checkout.");
+                return;
+            }
+            window.top.location.href = 'checkout.html';
+        }
+    </script>
+</head>
+<body onload="loadCart()">
+        <div class="cart-container">
+            <button class="accessories-btn" onclick="window.location.href='accessories.html'">🛍️ Back to Accessories</button>
+            <h2>Your Shopping Cart</h2>
+        <div class="customer-info">
+            <input type="text" placeholder="Name" id="customerName">
+            <input type="text" placeholder="Phone Number" id="customerPhone">
+            <input type="text" placeholder="Billing Address" id="customerAddress">
+        </div>
+        <div id="cartContainer"></div>
+        <h3 id="totalPrice">Total Price: $0</h3>
+        <button class="checkout" onclick="validateAndProceed()">Proceed to Checkout</button>
+    </div>
+</body>
+</html>

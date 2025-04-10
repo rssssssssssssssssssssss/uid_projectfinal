@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aprilia - Motoinfo</title>
+  <link rel="icon" href="../../icon.jpg">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Background styling for Aprilia page */
+    body {
+      background: url("https://lesstickersdecaroline.com/cdn/shop/products/ab191-apriliaracing-120121-101303.jpg?v=1633867066") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    
+    .company-detail-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 20px auto;
+      max-width: 1000px;
+      border-radius: 10px;
+    }
+    
+    .company-detail-section h1 {
+      color: #ffcc00;
+      font-size: 3rem;
+    }
+    
+    .company-detail-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .car-card {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    
+    .car-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    .car-card h3 {
+      color: #ffcc00;
+      margin: 10px 0;
+    }
+    
+    .car-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      color: black;
+      background: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    
+    .car-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 24px;
+      background: #ffcc00;
+      color: black;
+      padding: 10px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back-to-top:hover {
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">Motoinfo</div>
+    <ul class="nav-links">
+      <li><a href="/motoinfo.html">Home</a></li>
+      
+      <li><a href="/about.html">About</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Aprilia Information Section -->
+  <section class="company-detail-section">
+    <h1>Aprilia</h1>
+    <p>Aprilia is synonymous with high-performance motorcycles and a rich heritage in motorcycle racing, delivering cutting-edge technology and style.</p>
+  </section>
+  
+  <!-- Aprilia Motorcycles Grid -->
+  <section class="car-grid">
+    <div class="car-card">
+      <img src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/192165/aprilia-rsv4-1100-factory-right-front-three-quarter0.jpeg?isig=0" alt="Aprilia RSV4 1200">
+      <h3>RSV4 1200</h3>
+      <a href="../../cars/motogp/aprilia-rsv4-1200.html" class="btn">Details</a>
+    </div>
+  
+    <div class="car-card">
+      <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/194803/rsv4rr-right-front-three-quarter.jpeg?isig=0&q=80" alt="Aprilia RSV4 RR">
+      <h3>RSV4 RR</h3>
+      <a href="../../cars/motogp/aprilia-rsv4-rr.html" class="btn">Details</a>
+    </div>
+  </section>
+  
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+</body>
+</html>

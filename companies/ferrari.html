@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ferrari - Road Cars - Motoinfo</title>
+  <link rel="icon" href="../icon.jpg">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    /* Background styling for Ferrari page */
+    body {
+      background: url("../assets/images/companies/ferrari_logo.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .company-detail-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 20px auto;
+      max-width: 1000px;
+      border-radius: 10px;
+    }
+
+    .company-detail-section h1 {
+      color: #ffcc00;
+      font-size: 3rem;
+    }
+
+    .company-detail-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .car-card {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .car-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .car-card h3 {
+      color: #ffcc00;
+      margin: 10px 0;
+    }
+
+    .car-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      color: black;
+      background: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .car-card:hover {
+      transform: scale(1.05);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 24px;
+      background: #ffcc00;
+      color: black;
+      padding: 10px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-to-top:hover {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">Motoinfo</div>
+    <ul class="nav-links">
+      <li><a href="../motoinfo.html">Home</a></li>
+      <li><a href="../motoinfo.html#companies">Road Cars</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Ferrari Information Section -->
+  <section class="company-detail-section">
+    <h1>Ferrari - Road Cars</h1>
+    <p>Ferrari, founded by Enzo Ferrari in 1939, is an Italian luxury sports car manufacturer renowned for its iconic design, cutting-edge technology, and motorsport success. Headquartered in Maranello, Italy, Ferrari has created some of the most powerful and beautiful cars in automotive history.</p>
+    
+    <p>Ferrari is known for its high-performance road cars that blend style, speed, and engineering excellence. Each model represents a perfect balance between aerodynamics, luxury, and raw power. Ferrari’s legacy is deeply tied to Formula 1, where it holds the record for the most Constructors’ Championships.</p>
+
+    <p>Beyond their performance, Ferrari vehicles are a status symbol, attracting car enthusiasts, collectors, and celebrities worldwide. Every Ferrari car is a masterpiece, combining Italian craftsmanship with state-of-the-art engineering.</p>
+  </section>
+
+  <!-- Ferrari Cars Grid -->
+  <section class="car-grid">
+    
+
+    <div class="car-card">
+      <img src="https://f1rst-motors.s3.me-central-1.amazonaws.com/cars/1714734578935-ferrari_sf90_4007579941.jpeg" alt="Ferrari SF90 Stradale">
+      <h3>SF90 Stradale</h3>
+      <p>Ferrari’s first plug-in hybrid supercar, delivering 986 horsepower.</p>
+      <a href="../cars/sf90_stradale.html"btn>Details</a>
+    </div>
+
+    
+
+    
+
+    <div class="car-card">
+      <img src="https://i0.wp.com/asphalt9.info/wp-content/uploads/2018/07/Ferrari-LaFerrari.jpg?fit=1062%2C588&ssl=1" alt="LaFerrari">
+      <h3>LaFerrari</h3>
+      <p>A hybrid hypercar combining a V12 engine with KERS technology for extreme performance.</p>
+      <a href="../cars/laferrari.html"btn>Details</a>
+    </div>
+
+    <div class="car-card">
+      <img src="https://www.amalgamcollection.com/cdn/shop/products/DSCF2369_copy_Resized_grande.jpg?v=1601655188" alt="Ferrari Enzo">
+      <h3>Ferrari Enzo</h3>
+      <p>Named after the company’s founder, this limited-production model redefined supercar performance.</p>
+      <a href="../cars/ferrari-enzo.html" class="btn">Details</a>
+    </div>
+
+    
+  </section>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+</body>
+</html>

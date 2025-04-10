@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Motoinfo - Your Ultimate Motorsports Encyclopedia</title>
+  <link rel="icon" href="icon.jpg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">Motoinfo</div>
+    <ul class="nav-links">
+      <li><a href="#companies">Road Cars</a></li>
+      <li><a href="#f1">Formula 1</a></li>
+      
+      <li><a href="#wec">WEC</a></li>
+      <li><a href="#nascar">NASCAR</a></li>
+      <li><a href="#motogp">MotoGP</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="accessories.html">Accessories</a></li>
+    </ul>
+    <div class="login-signup">
+      <a href="login.html" class="btn small">Login</a>
+      <a href="signup.html" class="btn small">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="heroSection">
+    <div class="hero-overlay">
+      <h1>Welcome to Motoinfo</h1>
+      <p>Your ultimate encyclopedia for everything on wheels - from classic road cars to high-octane racing series.</p>
+    </div>
+  </section>
+
+  
+  <!-- Search Section -->
+<section class="search-section">
+  <h2>Find Your Dream Vehicle</h2>
+  <div class="search-container">
+    <input type="text" id="search-bar" placeholder="Search cars or bikes..." onkeyup="showSuggestions()">
+    <div id="suggestions"></div>
+  </div>
+</section>
+
+  <!-- 1. Road Car Companies Section -->
+  <section id="companies" class="companies-section">
+    <h2>Road Car Companies</h2>
+    <div class="company-grid">
+      <!-- Existing companies (detail pages list at least 5 models) -->
+      <div class="company-card">
+        <img src="assets/images/companies/hindustan_logo.png" alt="Hindustan Motors">
+        <h3>Hindustan Motors</h3>
+        <a href="companies/hindustan.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/ford_logo.png" alt="Ford">
+        <h3>Ford</h3>
+        <a href="companies/ford.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/maruti_logo.png" alt="Maruti Suzuki">
+        <h3>Maruti Suzuki</h3>
+        <a href="companies/maruti.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/tata_logo.png" alt="Tata Motors">
+        <h3>Tata Motors</h3>
+        <a href="companies/tata.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/mahindra_logo.png" alt="Mahindra & Mahindra">
+        <h3>Mahindra & Mahindra</h3>
+        <a href="companies/mahindra.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/mercedes_logo.png" alt="Mercedes-Benz">
+        <h3>Mercedes-Benz</h3>
+        <a href="companies/mercedes.html" class="btn">Explore</a>
+      </div>
+      <!-- New Road Car Companies -->
+      <div class="company-card">
+        <img src="assets\images\companies\Ferrari-Logo1.png" alt="Ferrari">
+        <h3>Ferrari</h3>
+        <a href="companies/ferrari.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/koenigsegg_logo.png" alt="Koenigsegg">
+        <h3>Koenigsegg</h3>
+        <a href="companies/koenigsegg.html" class="btn">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Formula 1 Section -->
+  <section id="f1" class="f1-section">
+    <h2>Formula 1</h2>
+    <div class="f1-content">
+      <p>Experience the pinnacle of motorsport: cutting-edge technology, speed, and innovation in Formula 1 racing.</p>
+      <a href="f1/f1-info.html" class="btn">Learn More</a>
+    </div>
+    <div class="company-grid f1-grid">
+      <!-- Existing F1 teams (detail pages now include an extra 2019 model) -->
+      <div class="company-card">
+        <img src="assets/images/companies/f1/mercedes_f1_logo.png" alt="Mercedes-AMG Petronas">
+        <h3>Mercedes-AMG Petronas</h3>
+        <a href="companies/f1/mercedes-f1.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/f1/ferrari_logo.png" alt="Scuderia Ferrari">
+        <h3>Scuderia Ferrari</h3>
+        <a href="companies/f1/ferrari.html" class="btn">Explore</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/f1/redbull_logo.png" alt="Red Bull Racing">
+        <h3>Red Bull Racing</h3>
+        <a href="companies/f1/redbull.html" class="btn">Explore</a>
+      </div>
+      <!-- New F1 Teams -->
+      <div class="company-card">
+        <img src="assets/images/companies/f1/mclaren_logo.png" alt="McLaren">
+        <h3>McLaren</h3>
+        <a href="companies/f1/mclaren.html" class="btn">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- 7. World Endurance Championship (WEC) Section -->
+  <section id="wec" class="f1-section">
+    <h2>World Endurance Championship (WEC)</h2>
+    <div class="company-grid f1-grid">
+      <div class="company-card">
+        <img src="assets/images/companies/wec/toyota_gazoo_logo.png" alt="Toyota Gazoo Racing">
+        <h3>Toyota Gazoo Racing</h3>
+        <a href="companies/wec/toyota_gazoo.html" class="btn">Learn More</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/wec/porsche_penske_logo.png" alt="Porsche Penske Motorsport">
+        <h3>Porsche Penske Motorsport</h3>
+        <a href="companies/wec/porsche_penske.html" class="btn">Learn More</a>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- 8. NASCAR Section -->
+  <section id="nascar" class="f1-section">
+    <h2>NASCAR</h2>
+    <div class="company-grid f1-grid">
+      
+      <div class="company-card">
+        <img src="assets/images/companies/nascar/joe_gibbs_logo.png" alt="Joe Gibbs Racing">
+        <h3>Joe Gibbs Racing</h3>
+        <a href="companies/nascar/joe_gibbs.html" class="btn">Learn More</a>
+      </div>
+      <div class="company-card">
+        <img src="assets/images/companies/nascar/team_penske_logo.png" alt="Team Penske NASCAR">
+        <h3>Team Penske NASCAR</h3>
+        <a href="companies/nascar/team_penske.html" class="btn">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. MotoGP Section -->
+  <section id="motogp" class="f1-section">
+    <h2>MotoGP</h2>
+    <div class="company-grid f1-grid">
+      <div class="company-card">
+        <img src="assets/images/companies/motogp/aprilia_logo.png" alt="Aprilia">
+        <h3>Aprilia</h3>
+        <a href="companies/motogp/aprilia.html" class="btn">Learn More</a>
+      </div>
+      
+      <div class="company-card">
+        <img src="assets/images/companies/motogp/yamaha_logo.png" alt="Yamaha">
+        <h3>Yamaha</h3>
+        <a href="companies/motogp/yamaha.html" class="btn">Learn More</a>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Back-to-Top Button -->
+  <a href="#" class="back-to-top" id="backToTop">↑</a>
+  
+</body>
+</html>

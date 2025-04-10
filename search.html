@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Accessories Store</title>
+    <style>
+        body {
+            display:inline;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color:#e6e6e6;
+        }
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px;
+            text-align: center;
+            width: 60%;
+            margin-left: 100px;
+            background-color:#e6e6e6 ;
+        }
+        .search-bar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 3px;
+            margin-left: 30px;
+            align-items: center;
+            background-color:#ffffff ;
+        }
+        .cart-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .suggestions {
+            position: absolute;
+            top: 52px;
+            left: 10px;
+            background: white;
+            border: 1px solid #000000;
+            width: 51%;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            margin-left:127px ;
+        }
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+        .product-display {
+            display:flex;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px;
+            width: 40%;
+            margin-left: 140px;
+        }
+        .product-container {
+            display: flex;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 20%;
+            height: 10%;
+            margin: auto;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .product img {
+            width: 30%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .add-to-cart{
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .buy-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        let products = [
+            "Car Scratch Remover Repair Wax Polish",
+            "Car Tissue Holder",
+            "Cycle Pump for Bicycle and Bike",
+            "Car Sun Shades",
+            "Car Dashboard Accessories",
+            "LBoard Learner ReflectiveDriver Vinyl Exterior Decal",
+            "Portable High Pressure Foot Air Pump",
+            "Mini Car Trash Bin Can Holder",
+            "Cordless Tyre Inflator",
+            "Digital Tyre Inflator with Emergency Light",
+            "Car Vacuum Cleaner",
+            "Tablet Concentrate Vehicle Glass Cleaner",
+            "LED Fog Lamp Unit",
+            "Liquid Car Polish",
+            "Universal Bike Mount Holder",
+            "Foaming Car Shampoo",
+            "Car Mobile Holder for Dashboard",
+            "Car Door Edge Guards",
+            "Tyre Air Pump for Car & Bike",
+            "Waterproof Two Wheeler Cover",
+            "Bike Number Plate Frame Cover",
+            "Riding Gloves",
+            "Car Seat Covers",
+            "Car Sun Visor Organizer",
+            "Car Pressure Washer",
+            "Portable DC Digital Tyre Inflator",
+            "Car Amplifier",
+            "Car Glass Hard Water Spot Remover"
+        ];
+        
+        let cart = [];
+
+        function showSuggestions(value) {
+            let suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = "";
+            if (value.length > 0) {
+                let matches = products.filter(p => p.toLowerCase().includes(value.toLowerCase()));
+                matches.forEach(match => {
+                    let div = document.createElement("div");
+                    div.innerText = match;
+                    div.onclick = function () {
+                        document.getElementById("searchBar").value = match;
+                        suggestions.style.display = "none";
+                        displayProduct(match);
+                    };
+                    suggestions.appendChild(div);
+                });
+                suggestions.style.display = "block";
+            } else {
+                suggestions.style.display = "none";
+            }
+        }
+
+        function displayProduct(productName) {
+            let productDisplay = document.getElementById("productDisplay");
+            productDisplay.innerHTML = `
+                <div class="product">
+                    <img src="image/${productName.replace(/ /g, '_').toLowerCase()}.jpeg" alt="${productName}">
+                    <h2>${productName}</h2>
+                    <p>Details about ${productName} will go here.</p>
+                    <button class="add-to-cart" onclick="addToCart('${productName}')">Add to Cart</button>
+                </div>`;
+        }
+
+        function addToCart(productName) {
+            let existingItem = cart.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name: productName, quantity: 1, price: 20 }); // Assume each product costs $20
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Added to cart!");
+        }
+
+        function goToCart() {
+            window.top.location.href = "cart.html"; // Ensures navigation to a new page in the same tab
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search for car accessories..." onkeyup="showSuggestions(this.value)">
+        <header>           
+        </header>
+        <div id="suggestions" class="suggestions"></div>
+    </div>
+    <div id="productDisplay" class="product-display"></div>
+</body>
+</html>
